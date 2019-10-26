@@ -102,6 +102,15 @@ class DoacaoRouter extends BaseRouter {
 		}
 	}
 
+	async autenticar(req, res, next) {
+		try {
+			const usuario = await this.doacaoController.autenticar(req);
+			return this.send(usuario, res, Const.REQUEST.HTTP.OK, null);
+		} catch (error) {
+			res.send(error);
+		}
+	}
+
 }
 
 module.exports = DoacaoRouter;

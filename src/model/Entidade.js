@@ -1,14 +1,16 @@
 const moongoose = require('mongoose');
+const jtw = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 let model = null;
 let schemaEntidade = null;
 
 class Entidade {
-    constructor({ _id, id, active, name, login, password, address, contact, description, updatedAt}) {
+    constructor({ _id, id, active, name, email, password, address, contact, description, updatedAt}) {
         this.id = _id || id || null;
         this.active = active;
         this.name = name || null;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.address = address;
         this.contact = contact;
@@ -31,8 +33,8 @@ class Entidade {
         return this;
     }
 
-    setLogin(login) {
-        this.login = login;
+    setEmail(email) {
+        this.email = email;
         return this;
     }
 
@@ -70,14 +72,33 @@ class Entidade {
                 updatedAt: {type: Date},
                 active: {type: Boolean, required: [true, '{PATH} is required!']},
                 name: {type: String, required: [true, '{PATH} is required!']},
-                login: {type: String, required: [true, '{PATH} is required!']},
+                email: {type: String, unique: true, required: [true, '{PATH} is required!']},
                 password: {type: String, required: [true, '{PATH} is required!']},
                 address: {type: Object, required: [true, '{PATH} is required!']},
                 contact: {type: Object, required: [true, '{PATH} is required!']},
                 description: {type: String}
             })
 
-            schemaEntidade.index({name: 1}, {unique: true});
+            schemaEntidade.index({email: 1}, {unique: true});
+            schemaEntidade.pre('save', async function hasPassword(next){
+                
+                if(!this.isModified('password')) next();
+
+                this.password = await bcrypt.hash(this.password, 8);
+
+            });
+
+            schemaEntidade.method = {
+                compareHash(hash) {
+                    return bcrypt.compare(hash, this.password);
+                },
+                genateToken() {
+                    return jtw.sign({ id: this._id }, "secret", {
+                        expiresIn: 86400
+                    });
+                }
+            };
+
             model = moongoose.model('Entidade', schemaEntidade);
         }
 

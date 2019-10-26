@@ -6,22 +6,34 @@ class EntidadeController {
     }
 
     async createEntidade(request) {
-        const { body } = request;
-        const entidade = new Entidade(body);
-        const entidadeCurrent = await this.entidadeRepository.save(entidade);
+        try {
+            const { body } = request;
+            const entidade = new Entidade(body);
+            const entidadeCurrent = await this.entidadeRepository.save(entidade);
 
-        return entidadeCurrent;
+            return entidadeCurrent;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getAllEntidade() {
-        const entidadeAll = await this.entidadeRepository.getAll();
-        return entidadeAll;
+        try {
+            const entidadeAll = await this.entidadeRepository.getAll();
+            return entidadeAll;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getById(req) {
-        const { params } = req;
-        const entidade = await this.entidadeRepository.getById(params.id);
-        return entidade;
+        try {
+            const { params } = req;
+            const entidade = await this.entidadeRepository.getById(params.id);
+            return entidade;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async delete(req) {
@@ -31,15 +43,36 @@ class EntidadeController {
     }
 
     async update(req) {
-        const { params, body } = req;
-        const entidade = await this.entidadeRepository.update(params.id, body);
-        return entidade;
+        try {
+            const { params, body } = req;
+            const entidade = await this.entidadeRepository.update(params.id, body);
+            return entidade;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getEntidadeByEntidadeStationId(req) {
-        const { params } = req;
-        const entidade = await this.entidadeRepository.getEntidadeByEntidadeStationId(params.id);
-        return entidade;
+        try {
+            const { params } = req;
+            const entidade = await this.entidadeRepository.getEntidadeByEntidadeStationId(params.id);
+            return entidade;
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async autenticar(req) {
+        try {
+            const { params, body } = req;
+
+            const entidade = await this.entidadeRepository.autenticar(body.email, body.password);
+            console.log(entidade)
+            return entidade;
+        } catch (error) {
+
+            throw error
+        }
     }
 
 

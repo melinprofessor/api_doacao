@@ -18,6 +18,18 @@ class EntidadeRouter extends BaseRouter {
 
         this.addRoute(
             Consts.REQUEST.METHODS.POST,
+            '/registrar/',
+            this.save.bind(this)
+        );
+
+        this.addRoute(
+            Consts.REQUEST.METHODS.POST,
+            '/autenticar/',
+            this.autenticar.bind(this)
+        );
+
+        this.addRoute(
+            Consts.REQUEST.METHODS.POST,
             '/entidade/',
             this.save.bind(this)
         );
@@ -52,16 +64,17 @@ class EntidadeRouter extends BaseRouter {
         try {
             return this.send(app, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
-            res.send(error)
+            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST)
         }
     }
 
     async save(req, res, next) {
         try {
             const entidade = await this.entidadeController.createEntidade(req);
-            return this.send(entidade, res, Const.REQUEST.HTTP.OK, null);
+            return this.send(entidade, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
-            res.send(error);
+            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST)
+
         }
     }
 
@@ -99,6 +112,16 @@ class EntidadeRouter extends BaseRouter {
             return this.send(entidadeAll, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
             res.send(error)
+        }
+    }
+
+    async autenticar(req, res, next) {
+        try {
+            const entidade = await this.entidadeController.autenticar(req);
+            console.log(entidade)
+            return this.send(entidade, res, Consts.REQUEST.HTTP.OK, null);
+        } catch (error) {
+            return this.send(error.message, res,  Consts.REQUEST.HTTP.UNAUTHORIZED)
         }
     }
 

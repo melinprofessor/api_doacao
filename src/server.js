@@ -7,13 +7,14 @@ const BaseRouter = require('./routes/BaseRouter');
 const DoacaoRouter = require('./routes/DoacaoRouter');
 const EntidadeRouter = require('./routes/EntidadeRouter');
 const MercadoriaRouter = require('./routes/MercadoriaRouter');
-
+const Auth = require('./middlewares/auth');
 class Server {
     constructor() {
         this.api = express();
         this.started = false;
         this.api.use(cors());
         this.api.use(bodyParser.json());
+        this.api.use(Auth);
         this.addAllRouters(DoacaoRouter);
         this.addAllRouters(EntidadeRouter);
         this.addAllRouters(MercadoriaRouter);
