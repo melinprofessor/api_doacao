@@ -4,7 +4,7 @@ const {promisify} = require('util');
 const auth = async(req, res, next) => {
     const authHeader = req.headers.autorization;
 
-    if(req.path === '/registrar' || req.path === '/autenticar') {
+    if(req.path === '/registrar' || req.path === '/autenticar' || req.path === '/api') {
         console.log(req.path)
         return next();
     }
