@@ -88,11 +88,11 @@ class Entidade {
 
             });
 
-            schemaEntidade.method = {
+            schemaEntidade.methods = {
                 compareHash(hash) {
                     return bcrypt.compare(hash, this.password);
                 },
-                genateToken() {
+                generateToken() {
                     return jtw.sign({ id: this._id }, "secret", {
                         expiresIn: 86400
                     });

@@ -118,7 +118,6 @@ class EntidadeRouter extends BaseRouter {
     async autenticar(req, res, next) {
         try {
             const entidade = await this.entidadeController.autenticar(req);
-            console.log(entidade)
             return this.send(entidade, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
             return this.send(error.message, res,  Consts.REQUEST.HTTP.UNAUTHORIZED)

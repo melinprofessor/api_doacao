@@ -67,7 +67,6 @@ class EntidadeController {
             const { params, body } = req;
 
             const entidade = await this.entidadeRepository.autenticar(body.email, body.password);
-            console.log(entidade)
             return entidade;
         } catch (error) {
 

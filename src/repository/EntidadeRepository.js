@@ -72,7 +72,7 @@ class EntidadeRepository {
             }
             return {
                 entidade,
-                token: entidade.genareteToken()
+                token: entidade.generateToken()
             }
         } catch (error) {
             throw error;
