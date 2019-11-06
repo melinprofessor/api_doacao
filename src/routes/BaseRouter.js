@@ -1,4 +1,4 @@
-const Const = require('../../Consts');
+const Consts = require('../../Consts');
 
 class BaseRouter {
     constructor(api) {
@@ -19,7 +19,7 @@ class BaseRouter {
 
     send(data, res, code, headers = {}) {
         const response = res
-        .status(code || Const.REQUEST.HTTP.OK)
+        .status(code || Consts.REQUEST.HTTP.OK)
         .type('application/json')
         .header(headers)
         .send(data);

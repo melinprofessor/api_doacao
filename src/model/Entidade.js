@@ -99,7 +99,7 @@ class Entidade {
                 }
             };
 
-            model = moongoose.model('Entidade', schemaEntidade);
+            model = moongoose.model('Entidade', schemaEntidade, 'entidades');
         }
 
         return model;
