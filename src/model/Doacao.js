@@ -4,12 +4,12 @@ let model = null;
 let schemaDoacao = null;
 
 class Doacao {
-    constructor({ _id, id, active, products, entidade, mercadoria, updatedAt}) {
+    constructor({ _id, id, active, products, entidadeDoadora, entidadeReceptora, updatedAt}) {
         this.id = _id || id || null;
         this.active = active;
         this.products = products;
-        this.entidade = entidade;
-        this.mercadoria = mercadoria;
+        this.entidadeDoadora = entidadeDoadora;
+        this.entidadeReceptora = entidadeReceptora;
         this.updatedAt = updatedAt;
     }
 
@@ -28,13 +28,13 @@ class Doacao {
         return this;
     }
 
-    setEntidade(entidade) {
-        this.entidade = entidade;
+    setEntidade(entidadeDoadora) {
+        this.entidadeDoadora = entidadeDoadora;
         return this;
     }
 
-    setMercadoria(mercadoria) {
-        this.mercadoria = mercadoria;
+    setMercadoria(entidadeReceptora) {
+        this.entidadeReceptora = entidadeReceptora;
         return this;
     }
 
@@ -52,12 +52,12 @@ class Doacao {
                 updatedAt: {type: Date},
                 active: {type: Boolean, required: [true, '{PATH} is required!']},
                 products: {type: Object, required: [true, '{PATH} is required!']},
-                entidade: {type: Schema.Types.ObjectId, required:[true, '{PATH} is required!']},                
-                mercadoria: {type: Schema.Types.ObjectId, required:[true, '{PATH} is required!']}
+                entidadeDoadora: {type: Schema.Types.ObjectId, ref: "Entidade", required:[true, '{PATH} is required!']},   
+                entidadeReceptora: {type: Schema.Types.ObjectId, ref: "Entidade"},
             })
 
-            schemaDoacao.index({name: 1}, {unique: true});
-            model = moongoose.model('Doacao', schemaDoacao);
+            // schemaDoacao.index({name: 1}, {unique: true});
+            model = moongoose.model('Doacao', schemaDoacao, 'doacoes');
         }
 
         return model;
