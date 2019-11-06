@@ -74,8 +74,8 @@ class Entidade {
                 name: {type: String, required: [true, '{PATH} is required!']},
                 email: {type: String, unique: true, required: [true, '{PATH} is required!']},
                 password: {type: String, required: [true, '{PATH} is required!']},
-                address: {type: Object, required: [true, '{PATH} is required!']},
-                contact: {type: Object, required: [true, '{PATH} is required!']},
+                address: {type: String, required: [true, '{PATH} is required!']},
+                contact: {type: String, required: [true, '{PATH} is required!']},
                 description: {type: String, required: [true, '{PATH} is required!']}
             })
 
@@ -99,7 +99,7 @@ class Entidade {
                 }
             };
 
-            model = moongoose.model('Entidade', schemaEntidade);
+            model = moongoose.model('Entidade', schemaEntidade, 'entidades');
         }
 
         return model;
