@@ -17,7 +17,6 @@ class EntidadeRepository {
             await entidade.save();
             return entidade;
         } catch (error) {
-            console.log(error)
             throw error;
         }
     }

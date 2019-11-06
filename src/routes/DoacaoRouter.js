@@ -50,18 +50,18 @@ class DoacaoRouter extends BaseRouter {
 	async home(req, res, next) {
 		const app = { app: 'api_doacao', versao: '1.0' };
 		try {
-			return this.send(app, res, Consts.REQUEST.HTTP.OK, null);
+			return this.send(app, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		} catch (error) {
-			res.send(error)
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
 	async save(req, res, next) {
 		try {
 			const doacao = await this.doacaoController.createDoacao(req);
-			return this.send(doacao, res, Const.REQUEST.HTTP.OK, null);
+			return this.send(doacao, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error);
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
@@ -70,7 +70,7 @@ class DoacaoRouter extends BaseRouter {
 			const doacaoAll = await this.doacaoController.getAllDoacao();
 			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error)
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
@@ -79,7 +79,7 @@ class DoacaoRouter extends BaseRouter {
 			const doacaoAll = await this.doacaoController.getById(req);
 			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error)
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
@@ -88,7 +88,7 @@ class DoacaoRouter extends BaseRouter {
 			const doacaoAll = await this.doacaoController.delete(req);
 			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error)
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
@@ -98,16 +98,16 @@ class DoacaoRouter extends BaseRouter {
 			const doacaoAll = await this.doacaoController.update(req);
 			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error)
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 
 	async autenticar(req, res, next) {
 		try {
 			const usuario = await this.doacaoController.autenticar(req);
-			return this.send(usuario, res, Const.REQUEST.HTTP.OK, null);
+			return this.send(usuario, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
-			res.send(error);
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
 

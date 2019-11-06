@@ -6,7 +6,6 @@ const auth = async(req, res, next) => {
     const {authorization} = req.headers;
 
     if(req.path === '/registrar' || req.path === '/autenticar' || req.path === '/api') {
-        console.log(req.path)
         return next();
     }
 

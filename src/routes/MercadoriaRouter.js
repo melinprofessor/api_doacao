@@ -59,7 +59,7 @@ class MercadoriaRouter extends BaseRouter {
     async save(req, res, next) {
         try {
             const mercadoria = await this.mercadoriaController.createMercadoria(req);
-            return this.send(mercadoria, res, Const.REQUEST.HTTP.OK, null);
+            return this.send(mercadoria, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
             res.send(error);
         }

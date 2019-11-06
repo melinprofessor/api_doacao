@@ -64,7 +64,7 @@ class EntidadeRouter extends BaseRouter {
         try {
             return this.send(app, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
-            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST)
+            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST);
         }
     }
 
@@ -73,7 +73,7 @@ class EntidadeRouter extends BaseRouter {
             const entidade = await this.entidadeController.createEntidade(req);
             return this.send(entidade, res, Consts.REQUEST.HTTP.OK, null);
         } catch (error) {
-            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST)
+            return this.send(error.message, res,  Consts.REQUEST.HTTP.BAD_REQUEST);
 
         }
     }
