@@ -76,7 +76,7 @@ class Entidade {
                 password: {type: String, required: [true, '{PATH} is required!']},
                 address: {type: String, required: [true, '{PATH} is required!']},
                 contact: {type: String, required: [true, '{PATH} is required!']},
-                description: {type: String}
+                description: {type: String, required: [true, '{PATH} is required!']}
             })
 
             schemaEntidade.index({email: 1}, {unique: true});
