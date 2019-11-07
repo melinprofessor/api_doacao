@@ -26,7 +26,7 @@ class DoacaoRepository {
 
     async getByIdEntidadeDoadora(id) {
         try {
-            const doacaoAll = await this.doacaoModel.find({ entidadeDoadora: { $ne: id } }).populate('entidadeDoadora', ['name', 'active']).populate('entidadeReceptora', ['name', 'active'])
+            const doacaoAll = await this.doacaoModel.find({ entidadeDoadora: { $ne: id }, entidadeReceptora: null}).populate('entidadeDoadora', ['name', 'active']).populate('entidadeReceptora', ['name', 'active'])
             return doacaoAll;
         } catch (error) {
             throw error;
