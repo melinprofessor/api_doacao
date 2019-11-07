@@ -1,4 +1,6 @@
 const Doacao = require('../model/Doacao');
+const Entidade = require('../model/Entidade');
+
 
 class DoacaoRepository {
     constructor() {
@@ -78,5 +80,31 @@ class DoacaoRepository {
             throw error;
         }
     }
+
+    async countInformations(id) {
+        try {
+           
+            const total = {
+                totalDoacaoCount: 0,
+                totalEntidades: 0,
+                totalDoado: 0,
+                totalRecibo: 0
+            }
+            const totalDoacao = await this.doacaoModel.find().estimatedDocumentCount();
+            const totalEntidades = await Entidade.getModel().estimatedDocumentCount();
+            const totalDoado = await Entidade.getModel().find({entidadeDoadora: id}).estimatedDocumentCount();
+            const totalRecibo = await Entidade.getModel().countDocuments({entidadeReceptora: id});
+
+            total.totalDoacaoCount = totalDoacao;
+            total.totalEntidades = totalEntidades;
+            total.totalDoado = totalDoado;
+            total.totalRecibo = totalRecibo;
+            return total
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    
 }
 module.exports = DoacaoRepository;

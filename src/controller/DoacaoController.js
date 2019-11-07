@@ -102,6 +102,17 @@ class DoacaoController {
     } catch (error) {
         throw error;   
     }
+  }
+
+  async countInformations(req) {
+    try {
+      const { params } = req;
+        const doacao = await this.doacaoRepository.countInformations(params.id);
+        return doacao;
+    } catch (error) {
+      console.log(error)
+        throw error;
+    }
 
   }
 }

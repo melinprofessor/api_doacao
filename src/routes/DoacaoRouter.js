@@ -18,13 +18,17 @@ class DoacaoRouter extends BaseRouter {
 
 		this.addRoute(
 			Consts.REQUEST.METHODS.POST,
-			'/doacao/',
+			'/doacao',
 			this.save.bind(this)
 		);
-
 		this.addRoute(
 			Consts.REQUEST.METHODS.GET,
-			'/doacao/',
+			'/doacao/informations/:id',
+			this.informations.bind(this)
+		);
+		this.addRoute(
+			Consts.REQUEST.METHODS.GET,
+			'/doacao',
 			this.getAll.bind(this)
 		);
 
@@ -63,7 +67,6 @@ class DoacaoRouter extends BaseRouter {
 			'/doacao/getbyidentidadedoadora/:id',
 			this.getByIdEntidadeDoadora.bind(this)
 		);
-		
 	}
 
 	async home(req, res, next) {
@@ -147,6 +150,16 @@ class DoacaoRouter extends BaseRouter {
 			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
 		}
 	}
+
+	async informations(req, res, next) {
+		try {
+			const resultado = await this.doacaoController.countInformations(req);
+			return this.send(resultado, res, Consts.REQUEST.HTTP.OK, null);
+		} catch (error) {
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
+		}
+	}
+
 
 	async autenticar(req, res, next) {
 		try {
