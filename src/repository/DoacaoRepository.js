@@ -1,5 +1,5 @@
 const Doacao = require('../model/Doacao');
-
+const Entidade = require('../model/Entidade');
 
 class DoacaoRepository {
     constructor() {
@@ -18,7 +18,11 @@ class DoacaoRepository {
 
     async getAll() {
         try {
+<<<<<<< HEAD
             const doacaoAll = await this.doacaoModel.find({}).populate({path:"Entidade", select:"name"});
+=======
+            const doacaoAll = await this.doacaoModel.find().populate('entidadeDoadora',['name','active'])
+>>>>>>> d22f3d353d8347c2b3f9f73e0e7466a0a735d126
             return doacaoAll;
         } catch (error) {
             throw error;
