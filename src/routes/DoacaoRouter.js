@@ -45,6 +45,18 @@ class DoacaoRouter extends BaseRouter {
 			'/doacao/:id',
 			this.update.bind(this)
 		);
+
+		this.addRoute(
+			Consts.REQUEST.METHODS.GET,
+			'/doacaoByIdReceptora/:id',
+			this.doacaoByIdReceptora.bind(this)
+		);
+
+		this.addRoute(
+			Consts.REQUEST.METHODS.GET,
+			'/doacaoByIdDoadora/:id',
+			this.doacaoByIdReceptora.bind(this)
+		);
 	}
 
 	async home(req, res, next) {
@@ -77,6 +89,24 @@ class DoacaoRouter extends BaseRouter {
 	async getById(req, res, next) {
 		try {
 			const doacaoAll = await this.doacaoController.getById(req);
+			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
+		} catch (error) {
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
+		}
+	}
+
+	async doacaoByIdReceptora(req, res, next) {
+		try {
+			const doacaoAll = await this.doacaoController.doacaoByIdReceptora(req);
+			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
+		} catch (error) {
+			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);
+		}
+	}
+
+	async doacaoByIdDoadora(req, res, next) {
+		try {
+			const doacaoAll = await this.doacaoController.doacaoByIdDoadora(req);
 			return this.send(doacaoAll, res, Consts.REQUEST.HTTP.OK, null);
 		} catch (error) {
 			return this.send(error.message, res, Consts.REQUEST.HTTP.BAD_REQUEST, null);

@@ -37,6 +37,28 @@ class DoacaoController {
 
   }
 
+  async doacaoByIdReceptora(req) {
+    try {
+        const { params } = req;
+        const doacao = await this.doacaoRepository.doacaoByIdReceptora(params.id);
+        return doacao;        
+    } catch (error) {
+        throw error;
+    }
+
+  }
+
+  async doacaoByIdDoadora(req) {
+    try {
+        const { params } = req;
+        const doacao = await this.doacaoRepository.doacaoByIdDoadora(params.id);
+        return doacao;        
+    } catch (error) {
+        throw error;
+    }
+
+  }
+
   async delete(req) {
     try {
         const { params } = req;

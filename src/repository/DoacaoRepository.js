@@ -18,7 +18,7 @@ class DoacaoRepository {
 
     async getAll() {
         try {
-            const doacaoAll = await this.doacaoModel.find({});
+            const doacaoAll = await this.doacaoModel.find({}).populate({path:"Entidade", select:"name"});
             return doacaoAll;
         } catch (error) {
             throw error;
@@ -28,6 +28,24 @@ class DoacaoRepository {
     async getById(id) {
         try {
             const doacao = await this.doacaoModel.find({ _id: id });
+            return doacao;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async doacaoByIdReceptora(id) {
+        try {
+            const doacao = await this.doacaoModel.find({ entidadeReceptora: id });
+            return doacao;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async doacaoByIdDoadora(id) {
+        try {
+            const doacao = await this.doacaoModel.find({ entidadeDoadora: id });
             return doacao;
         } catch (error) {
             throw error;
