@@ -55,7 +55,7 @@ class DoacaoRouter extends BaseRouter {
 		this.addRoute(
 			Consts.REQUEST.METHODS.GET,
 			'/doacaoByIdDoadora/:id',
-			this.doacaoByIdReceptora.bind(this)
+			this.doacaoByIdDoadora.bind(this)
 		);
 	}
 
