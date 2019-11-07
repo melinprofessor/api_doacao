@@ -54,7 +54,7 @@ class DoacaoRepository {
 
     async doacaoByIdDoadora(id) {
         try {
-            const doacao = await this.doacaoModel.find({ entidadeDoadora: id }).populate('entidadeDoadora',['name','active']);
+            const doacao = await this.doacaoModel.find({ entidadeDoadora: id }).populate('entidadeReceptora',['name','active']);
             return doacao;
         } catch (error) {
             throw error;
