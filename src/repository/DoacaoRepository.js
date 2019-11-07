@@ -34,6 +34,24 @@ class DoacaoRepository {
         }
     }
 
+    async doacaoByIdReceptora(id) {
+        try {
+            const doacao = await this.doacaoModel.find({ entidadeReceptora: id });
+            return doacao;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async doacaoByIdDoadora(id) {
+        try {
+            const doacao = await this.doacaoModel.find({ entidadeDoadora: id });
+            return doacao;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async delete(id) {
         try {
             const doacao = await this.doacaoModel.deleteOne({ _id: id });
