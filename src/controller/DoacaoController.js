@@ -59,6 +59,17 @@ class DoacaoController {
 
   }
 
+  async getByIdEntidadeDoadora(req) {
+    try {
+      const { params } = req;
+      const doacao = await this.doacaoRepository.getByIdEntidadeDoadora(params.id);
+      return doacao;
+    } catch (error) {
+      throw error;
+    }
+  }
+       
+
   async delete(req) {
     try {
         const { params } = req;

@@ -1,5 +1,4 @@
 const Doacao = require('../model/Doacao');
-const Entidade = require('../model/Entidade');
 
 class DoacaoRepository {
     constructor() {
@@ -18,10 +17,20 @@ class DoacaoRepository {
 
     async getAll() {
         try {
-            const doacaoAll = await this.doacaoModel.find().populate('entidadeDoadora',['name','active'])
+            const doacaoAll = await this.doacaoModel.find().populate('entidadeDoadora',['name','active']).populate('entidadeReceptora',['name','active'])
             return doacaoAll;
         } catch (error) {
             throw error;
+        }
+    }
+
+    async getByIdEntidadeDoadora(id) {
+        try {
+            const doacaoAll = await this.doacaoModel.find({ entidadeDoadora: { $ne: id } }).populate('entidadeDoadora', ['name', 'active']).populate('entidadeReceptora', ['name', 'active'])
+            return doacaoAll;
+        } catch (error) {
+            throw error;
+
         }
     }
 
@@ -36,7 +45,7 @@ class DoacaoRepository {
 
     async doacaoByIdReceptora(id) {
         try {
-            const doacao = await this.doacaoModel.find({ entidadeReceptora: id });
+            const doacao = await this.doacaoModel.find({ entidadeReceptora: id }).populate('entidadeReceptora',['name','active']);
             return doacao;
         } catch (error) {
             throw error;
@@ -45,7 +54,7 @@ class DoacaoRepository {
 
     async doacaoByIdDoadora(id) {
         try {
-            const doacao = await this.doacaoModel.find({ entidadeDoadora: id });
+            const doacao = await this.doacaoModel.find({ entidadeDoadora: id }).populate('entidadeDoadora',['name','active']);
             return doacao;
         } catch (error) {
             throw error;
